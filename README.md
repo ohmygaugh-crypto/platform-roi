@@ -57,3 +57,7 @@ A typical Framework project looks like this:
 | `yarn deploy`     | Deploy your app to Observable                            |
 | `yarn clean`      | Clear the local data loader cache                        |
 | `yarn observable` | Run commands like `observable help`                      |
+
+
+Data loaders (python, r, julia, etc)
+https://www.youtube.com/watch?v=Q6lQRUTZpnU

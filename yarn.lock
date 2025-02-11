@@ -369,7 +369,7 @@
     wrap-ansi "^9.0.0"
     ws "^8.14.2"
 
-"@observablehq/inputs@0.12.0", "@observablehq/inputs@^0.12.0":
+"@observablehq/inputs@^0.12.0":
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/@observablehq/inputs/-/inputs-0.12.0.tgz#865acb8f3292efdfedfdd5291e69dd88f7086ef3"
   integrity sha512-1ln7+PYe31cMx00K9awVbiCscQM0THnXRJ/AEzd+FfTA25Gu3KRWknAGECxU49QzHyKqiXpLl5LCg3XtYm70eQ==
@@ -384,12 +384,12 @@
   dependencies:
     isoformat "^0.2.0"
 
-"@observablehq/plot@0.6.11":
-  version "0.6.11"
-  resolved "https://registry.yarnpkg.com/@observablehq/plot/-/plot-0.6.11.tgz#160c6a40575743374c9361303e94920d9d42c813"
-  integrity sha512-7f43OizjVcno6/lZ+IC/bIceud9ZYJa7PCnZTjHCf3utcaGXgLqC1qxpYLzNZTnVHpKTFfqoPY/jOuFC/kSWgA==
+"@observablehq/plot@^0.6.16":
+  version "0.6.16"
+  resolved "https://registry.yarnpkg.com/@observablehq/plot/-/plot-0.6.16.tgz#d417d716e2704e2899b0a43f53bda022641eec80"
+  integrity sha512-LRi9Rn93yUx90MIo2Md7+vazxO3Wiat14but2ttCER0xVS+jnfoUjuCGoz6H7bz/lgI9CFcW0HWlvWjMFjAv8g==
   dependencies:
-    d3 "^7.8.0"
+    d3 "^7.9.0"
     interval-tree-1d "^1.0.0"
     isoformat "^0.2.0"
 
@@ -999,7 +999,7 @@ d3@7.8.5:
     d3-transition "3"
     d3-zoom "3"
 
-d3@^7.8.0:
+d3@^7.9.0:
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/d3/-/d3-7.9.0.tgz#579e7acb3d749caf8860bd1741ae8d371070cd5d"
   integrity sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==

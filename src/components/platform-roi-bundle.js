@@ -50,11 +50,23 @@ export function initROICalculator() {
 }
 
 function createInputSliders(container, state) {
-  // Helper function to determine if category represents costs
-  const isCostCategory = (category) => ['platform', 'operational'].includes(category);
-  
-  // Helper function to get slider color
-  const getSliderColor = (category) => isCostCategory(category) ? '#ff4444' : '#44bb44';
+  // Helper function to get slider color based on position
+  const getSliderColor = (currentValue, minValue, maxValue) => {
+    // Calculate position percentage (0 to 1)
+    const range = maxValue - minValue;
+    const midPoint = minValue + (range / 2);
+    const position = (currentValue - midPoint) / (range / 2); // -1 to 1
+
+    if (position < 0) {
+      // Left side - green to white
+      const intensity = Math.abs(position); // 0 to 1
+      return `rgb(${Math.round(255 * (1 - intensity))}, 255, ${Math.round(255 * (1 - intensity))})`;
+    } else {
+      // Right side - white to red
+      const intensity = position; // 0 to 1
+      return `rgb(255, ${Math.round(255 * (1 - intensity))}, ${Math.round(255 * (1 - intensity))})`;
+    }
+  };
   
   // Create sliders for each category
   Object.entries(state).forEach(([category, values]) => {
@@ -71,22 +83,28 @@ function createInputSliders(container, state) {
       
       const slider = document.createElement("input");
       slider.type = "range";
-      slider.min = value * 0.5;
-      slider.max = value * 1.5;
+      const minValue = value * 0.5;
+      const maxValue = value * 1.5;
+      slider.min = minValue;
+      slider.max = maxValue;
       slider.value = value;
       slider.className = "w-full";
       
-      // Add color styling to the slider
-      const color = getSliderColor(category);
-      slider.style.accentColor = color;
+      // Add initial color styling
+      slider.style.accentColor = getSliderColor(value, minValue, maxValue);
       
       const valueDisplay = document.createElement("span");
       valueDisplay.className = "text-sm text-gray-600";
       valueDisplay.textContent = `$${value.toLocaleString()}`;
       
       slider.addEventListener("input", (e) => {
-        state[category][key] = Number(e.target.value);
-        valueDisplay.textContent = `$${Number(e.target.value).toLocaleString()}`;
+        const newValue = Number(e.target.value);
+        state[category][key] = newValue;
+        valueDisplay.textContent = `$${newValue.toLocaleString()}`;
+        
+        // Update slider color based on current value
+        slider.style.accentColor = getSliderColor(newValue, minValue, maxValue);
+        
         updateChart(document.getElementById("chart-container"), state);
         updateMetrics(document.getElementById("metrics-container"), state);
       });

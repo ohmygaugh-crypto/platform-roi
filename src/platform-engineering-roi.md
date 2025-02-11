@@ -106,7 +106,35 @@ const defaultCosts = {
   </div>
 </div>
 
-
+<!-- ROI Calculation -->
+```js
+function calculateROI(costs, months) {
+  return Array.from({ length: months }, (_, month) => {
+    // Platform Costs
+    const platformCosts = Object.values(costs.platform).reduce((a, b) => a + b, 0);
+    const operationalCosts = Object.values(costs.operational).reduce((a, b) => a + b, 0);
+    const totalCost = platformCosts + operationalCosts;
+    
+    // Benefits & Savings
+    const optimizationSavings = Object.values(costs.optimization).reduce((a, b) => a + b, 0);
+    const businessImpact = Object.values(costs.business).reduce((a, b) => a + b, 0);
+    const inefficienciesReduced = Object.values(costs.infrastructure).reduce((a, b) => a + b, 0) +
+                                 Object.values(costs.engineering).reduce((a, b) => a + b, 0);
+    
+    // Apply monthly improvement factor
+    const monthlyGrowthRate = 0.05; // 5% monthly improvement
+    const totalSavings = (optimizationSavings + businessImpact + inefficienciesReduced) * 
+                        (1 + month * monthlyGrowthRate);
+    
+    return {
+      month: month + 1,
+      cost: totalCost,
+      savings: totalSavings,
+      roi: ((totalSavings - totalCost) / totalCost) * 100
+    };
+  });
+}
+```
 
 <!-- ROI Visualization -->
 ```js

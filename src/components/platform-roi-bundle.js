@@ -68,12 +68,19 @@ function createInputSliders(container, state) {
     }
   };
   
+  // Helper function to calculate percentage change
+  const getPercentageChange = (currentValue, initialValue) => {
+    const change = ((currentValue - initialValue) / initialValue) * 100;
+    const sign = change >= 0 ? '+' : ''; // Add plus sign for positive changes
+    return `${sign}${change.toFixed(1)}%`;
+  };
+  
   // Create sliders for each category
   Object.entries(state).forEach(([category, values]) => {
     const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `<h3 class="text-lg font-bold mb-2">${category}</h3>`;
     
-    Object.entries(values).forEach(([key, value]) => {
+    Object.entries(values).forEach(([key, initialValue]) => {
       const sliderContainer = document.createElement("div");
       sliderContainer.className = "mb-4";
       
@@ -83,24 +90,24 @@ function createInputSliders(container, state) {
       
       const slider = document.createElement("input");
       slider.type = "range";
-      const minValue = value * 0.5;
-      const maxValue = value * 1.5;
+      const minValue = initialValue * 0.5;
+      const maxValue = initialValue * 1.5;
       slider.min = minValue;
       slider.max = maxValue;
-      slider.value = value;
+      slider.value = initialValue;
       slider.className = "w-full";
       
       // Add initial color styling
-      slider.style.accentColor = getSliderColor(value, minValue, maxValue);
+      slider.style.accentColor = getSliderColor(initialValue, minValue, maxValue);
       
       const valueDisplay = document.createElement("span");
       valueDisplay.className = "text-sm text-gray-600";
-      valueDisplay.textContent = `$${value.toLocaleString()}`;
+      valueDisplay.textContent = `$${initialValue.toLocaleString()} (${getPercentageChange(initialValue, initialValue)})`;
       
       slider.addEventListener("input", (e) => {
         const newValue = Number(e.target.value);
         state[category][key] = newValue;
-        valueDisplay.textContent = `$${newValue.toLocaleString()}`;
+        valueDisplay.textContent = `$${newValue.toLocaleString()} (${getPercentageChange(newValue, initialValue)})`;
         
         // Update slider color based on current value
         slider.style.accentColor = getSliderColor(newValue, minValue, maxValue);
